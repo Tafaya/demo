@@ -52,4 +52,15 @@ public class DemoController {
 		return sb.toString();
 	}
 
+	@GetMapping("history")
+	public String getHistory() {
+		StringBuilder sb = new StringBuilder();
+
+		for (LogEntry logEntry : logRepository.findAll()) {
+			sb.append(logEntry.toString() + "\n");
+		}
+
+		return sb.toString();
+	}
+
 }

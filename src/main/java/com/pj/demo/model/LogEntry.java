@@ -80,4 +80,15 @@ public class LogEntry {
 		this.createdDate = createdDate;
 	}
 
+	@Override
+	public String toString() {
+		return "LogEntry{" +
+			"id=" + id +
+			", userName='" + userName + '\'' +
+			", searchPath='" + searchPath + '\'' +
+			", extension='" + extension + '\'' +
+			", createdDate=" + createdDate +
+			'}';
+	}
+
 }
