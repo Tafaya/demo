@@ -1,7 +1,5 @@
 package com.pj.demo.web;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,10 +7,11 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pj.demo.model.LogEntry;
@@ -61,6 +60,18 @@ public class DemoController {
 		}
 
 		return sb.toString();
+	}
+
+	@GetMapping("doc")
+	public String getDoc() {
+		StringBuilder sb = new StringBuilder();
+
+		return sb.toString();
+	}
+
+	@PostMapping("gen")
+	public ResponseEntity<String> gen() {
+		return ResponseEntity.ok("");
 	}
 
 }

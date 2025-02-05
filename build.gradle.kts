@@ -23,6 +23,8 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.4")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.mockito:mockito-core:5.15.2")
+	testImplementation("com.h2database:h2:2.3.232")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
