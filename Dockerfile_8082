@@ -4,8 +4,7 @@ WORKDIR /home/gradle/src
 RUN gradle build --no-daemon
 
 FROM openjdk:17.0.1-jdk-slim
-ARG SPRING_DOCKER_PORT_2
-EXPOSE ${SPRING_DOCKER_PORT_2}
+EXPOSE 8082
 
 RUN addgroup demogroup; adduser --ingroup demogroup --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password app2
 
@@ -19,5 +18,5 @@ COPY --from=build /home/gradle/src/build/libs/demo-0.0.1-SNAPSHOT.jar /app/demo.
 RUN mkdir -p /var/tmp/testfolder
 COPY --from=build /home/gradle/src/src/main/resources/testfolder/ /var/tmp/testfolder/
 
-CMD ["java","-jar","-Dserver.port=${SPRING_DOCKER_PORT_2}","/app/demo.jar"]
+CMD ["java","-jar","-Dserver.port=8082","/app/demo.jar"]
 

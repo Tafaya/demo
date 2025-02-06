@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   postgresdb:
@@ -25,7 +25,7 @@ services:
       - $SPRING_LOCAL_PORT_1:$SPRING_DOCKER_PORT_1
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url"  : "jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE",
+        "spring.datasource.url"  : "jdbc:postgresql://10.88.0.2:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE",
         "spring.datasource.username" : "$POSTGRESDB_USER",
         "spring.datasource.password" : "$POSTGRESDB_ROOT_PASSWORD",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
@@ -33,7 +33,7 @@ services:
       }'
   app_8082:
     depends_on:
-      - postgresdb
+      - app_8081
     build:
       context: .
       dockerfile: Dockerfile_8082
@@ -43,7 +43,7 @@ services:
       - $SPRING_LOCAL_PORT_2:$SPRING_DOCKER_PORT_2
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url"  : "jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE",
+        "spring.datasource.url"  : "jdbc:postgresql://10.88.0.2:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE",
         "spring.datasource.username" : "$POSTGRESDB_USER",
         "spring.datasource.password" : "$POSTGRESDB_ROOT_PASSWORD",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
@@ -56,3 +56,5 @@ services:
 
 #volumes:
   #db:
+
+

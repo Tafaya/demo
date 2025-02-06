@@ -16,62 +16,35 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pj.demo.model.LogEntry;
 import com.pj.demo.repository.LogRepository;
+import com.pj.demo.service.DemoService;
 
 @RestController
 public class DemoController {
 
-	private final LogRepository logRepository;
+	private final DemoService demoService;
 
-	public DemoController(LogRepository logRepository) {
-		this.logRepository = logRepository;
+	public DemoController(DemoService demoService) {
+		this.demoService = demoService;
 	}
 
 	@GetMapping("getUnique")
-	public String getUniqueFiles(String path, String extension) throws IOException {
-		LogEntry logEntry = new LogEntry();
-		logEntry.setSearchPath(path);
-		logEntry.setExtension(extension);
-		logEntry.setUserName(System.getProperty("user.name"));
-		logRepository.save(logEntry);
-
-		Set<String> uniqueFiles = new HashSet<>();
-
-		try (Stream<Path> stream = Files.walk(Paths.get(path))) {
-			stream.filter(file -> Files.isRegularFile(file) && file.getFileName().toString().endsWith(extension))
-				.forEach(regularFilePath -> uniqueFiles.add(regularFilePath.getFileName().toString()));
-		}
-
-		List<String> orderedUniqueFiles = uniqueFiles.stream().sorted().toList();
-
-		StringBuilder sb = new StringBuilder();
-		for (String fileName : orderedUniqueFiles) {
-			sb.append(fileName + "\n");
-		}
-
-		return sb.toString();
+	public ResponseEntity<String> getUniqueFiles(String path, String extension) throws IOException {
+		return ResponseEntity.ok(demoService.getUniqueFiles(path, extension));
 	}
 
 	@GetMapping("history")
-	public String getHistory() {
-		StringBuilder sb = new StringBuilder();
-
-		for (LogEntry logEntry : logRepository.findAll()) {
-			sb.append(logEntry.toString() + "\n");
-		}
-
-		return sb.toString();
+	public ResponseEntity<String> getHistory() {
+		return ResponseEntity.ok(demoService.getHistory());
 	}
 
 	@GetMapping("doc")
-	public String getDoc() {
-		StringBuilder sb = new StringBuilder();
-
-		return sb.toString();
+	public ResponseEntity<String> getDoc() {
+		return ResponseEntity.ok(demoService.getDoc());
 	}
 
 	@PostMapping("gen")
 	public ResponseEntity<String> gen() {
-		return ResponseEntity.ok("");
+		return ResponseEntity.ok(demoService.gen());
 	}
 
 }
