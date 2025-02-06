@@ -23,6 +23,15 @@ public class DemoService {
 		this.logRepository = logRepository;
 	}
 
+	/**
+	 * Returns the list of unique files with the given extension
+	 * on the given path (recursively)
+	 *
+	 * @param path the root path of the search
+	 * @param extension only files with this extension will return
+	 * @return the list of file names in alphabetical order
+	 * @throws IOException - Exception while traversing the file tree
+	 */
 	public String getUniqueFiles(String path, String extension) throws IOException {
 		LogEntry logEntry = new LogEntry();
 		logEntry.setSearchPath(path);
@@ -47,8 +56,14 @@ public class DemoService {
 		return sb.toString();
 	}
 
+	/**
+	 * Returns the history of previous searches
+	 *
+	 * @return list of previous searches
+	 */
 	public String getHistory() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("Id | User Name | Search Path | Extension | Created\n");
 
 		for (LogEntry logEntry : logRepository.findAll()) {
 			sb.append(logEntry.toString() + "\n");
@@ -57,12 +72,22 @@ public class DemoService {
 		return sb.toString();
 	}
 
+	/**
+	 * Returns the documentation for the application endpoints
+	 *
+	 * @return endpoint documentation
+	 */
 	public String getDoc() {
 		StringBuilder sb = new StringBuilder();
 
 		return sb.toString();
 	}
 
+	/**
+	 * Generates a sample folder tree with files to the linux user's home folder
+	 *
+	 * @return the generated tree representation
+	 */
 	public String gen() {
 		StringBuilder sb = new StringBuilder();
 

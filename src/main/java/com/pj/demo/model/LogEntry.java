@@ -82,13 +82,7 @@ public class LogEntry {
 
 	@Override
 	public String toString() {
-		return "LogEntry{" +
-			"id=" + id +
-			", userName='" + userName + '\'' +
-			", searchPath='" + searchPath + '\'' +
-			", extension='" + extension + '\'' +
-			", createdDate=" + createdDate +
-			'}';
+		return id + " | " + userName + " | " + searchPath + " | " + extension + " | " + createdDate;
 	}
 
 }
