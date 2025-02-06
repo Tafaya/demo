@@ -11,11 +11,16 @@ services:
       - POSTGRES_DB=$POSTGRESDB_DATABASE
     ports:
       - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
-    #volumes:
-      #- db:/var/lib/postgres
+    #healthcheck:
+      #test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
+      #interval: 10s
+      #timeout: 5s
+      #retries: 5
   app_8081:
     depends_on:
       - postgresdb
+      #postgresdb:
+        #condition: service_healthy
     build:
       context: .
       dockerfile: Dockerfile_8081
@@ -33,7 +38,9 @@ services:
       }'
   app_8082:
     depends_on:
-      - app_8081
+      - postgresdb
+      #postgresdb:
+        #condition: service_healthy
     build:
       context: .
       dockerfile: Dockerfile_8082
