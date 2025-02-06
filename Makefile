@@ -1,2 +1,2 @@
 run:
-	docker-compose up
+	podman-compose up
