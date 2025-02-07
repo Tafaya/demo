@@ -1,6 +1,6 @@
 # Demo Project
 
-Demo project for DBT interview
+Demo project for interview
 
 ## Description
 
