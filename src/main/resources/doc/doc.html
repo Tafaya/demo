@@ -1,0 +1,32 @@
+<html>
+<title>Demo project</title>
+
+<body>
+	<h2>Demo project endpoint documentation</h2>
+	<br/>
+	
+	<h3>GET /doc</h3>
+	<p>Prints out this documentation</p>
+	<br/>
+	
+	<h3>GET /getUnique</h3>
+	<p>Collect unique file names with extension <b>ext</b> on the given <b>path</b></p>
+	<pre>  <b>Parameters</b></pre>
+	<pre>  String path - the root path of the search</pre>
+	<pre>  String ext - files with this extension will be considered during the search</pre>
+	<br/>
+	
+	<h3>GET /history</h3>
+	<p>Returns the list of previous searches</p>
+	<br/>
+	
+	<h3>POST /gen</h3>
+	<p>
+		Generates a sample folder structure and files with the given extension <b>ext</b> and files not with this extension for testing purposes.<br/>
+		Subsequent calls are not recreating the folder structure. The output is the file structure
+	</p>
+	<pre>  <b>Parameters</b></pre>
+	<pre>  String ext - extension for the test files</pre>
+	
+</body>
+</html>

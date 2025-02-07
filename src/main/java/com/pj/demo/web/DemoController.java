@@ -12,10 +12,12 @@ import java.util.stream.Stream;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pj.demo.model.LogEntry;
 import com.pj.demo.repository.LogRepository;
+import com.pj.demo.request.GenerateRequest;
 import com.pj.demo.service.DemoService;
 
 @RestController
@@ -39,12 +41,23 @@ public class DemoController {
 
 	@GetMapping("doc")
 	public ResponseEntity<String> getDoc() {
-		return ResponseEntity.ok(demoService.getDoc());
+		try {
+			String doc = demoService.getDoc();
+
+			return ResponseEntity.ok(doc);
+		} catch (IOException e) {
+			return ResponseEntity.internalServerError().body("Error while getting documentation!");
+		}
 	}
 
 	@PostMapping("gen")
-	public ResponseEntity<String> gen() {
-		return ResponseEntity.ok(demoService.gen());
+	public ResponseEntity<String> gen(@RequestBody GenerateRequest generateRequest) {
+		try {
+			String result = demoService.gen(generateRequest.getExtension());
+			return ResponseEntity.ok(result);
+		} catch (IOException e) {
+			return ResponseEntity.internalServerError().body("Error while creating test folder!");
+		}
 	}
 
 }
