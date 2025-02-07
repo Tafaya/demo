@@ -17,6 +17,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -93,7 +94,7 @@ public class DemoService {
 	 * @return endpoint documentation
 	 */
 	public String getDoc() throws IOException {
-		Resource resource = resourceLoader.getResource("classpath:doc/doc.html");
+		ClassPathResource resource = new ClassPathResource("doc/doc.html");
 		InputStream inputStream = resource.getInputStream();
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

@@ -1,6 +1,9 @@
 package com.pj.demo.service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
 
@@ -9,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 import com.pj.demo.model.LogEntry;
@@ -65,7 +70,22 @@ class DemoServiceTest {
 	}
 
 	@Test
-	void getDoc() {
+	void getDoc() throws IOException {
+		ClassPathResource resource = new ClassPathResource("doc/doc.html");
+
+		InputStream inputStream = resource.getInputStream();
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+		StringBuilder stringBuilder = new StringBuilder();
+		String line;
+
+		while ((line = reader.readLine()) != null) {
+			stringBuilder.append(line);
+		}
+
+		reader.close();
+
+		assertNotNull(stringBuilder.toString(), subject.getDoc().toString());
 	}
 
 }
